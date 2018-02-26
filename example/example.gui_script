@@ -1,14 +1,73 @@
 zui = require("zui.zui")
 
+local M = {}
+
+M.RIGHT_TO_LEFT = 1
+M.LEFT_TO_RIGHT = 2
+M.TOP_TO_BOTTOM = 3
+M.BOTTOM_TO_TOP = 4
+
+function M.setup_image_counter_nodes(data, template)
+	local container = {}
+	local size = gui.get_size(template)
+	for k=1, data.counter_max do
+		container[k] = {}
+		container[k].gui = gui.clone(template)
+		local position = vmath.vector3()
+		print(size.x, position.x)
+		position.x = data.parent_position.x + (size.x - 4) * k 
+		position.y = data.parent_position.y
+		gui.set_position(container[k].gui, position)
+		gui.set_enabled(container[k].gui, true)
+	end
+	return container
+end
+
+function M.modify_counter_value(self, amount)
+	self.bullet_counter = self.bullet_counter + amount
+	if self.bullet_counter < 0 then self.bullet_counter = 0 end
+	if self.bullet_counter > self.bullet_counter_max then self.bullet_counter = self.bullet_counter_max end
+	for k,v in ipairs(self.bullet_nodes) do
+		print(k)
+		if k <= self.bullet_counter then
+			gui.set_enabled(v.gui,true)
+		else
+			gui.set_enabled(v.gui,false)
+		end
+	end
+end
+
 function init(self)
 
+	msg.post(".", "acquire_input_focus")
+	
+	self.bullet_counter = 12
+	self.bullet_counter_max = 12
+	self.bullet_counter_text_node = gui.get_node("bullet_counter")
+	
+	self.bullet_template_node = gui.get_node("bullet_template/box")
+	gui.set_enabled(self.bullet_template_node, false)
+
+	local data = {
+		counter_max = self.bullet_counter_max,
+		parent_position = vmath.vector3(8,20,0)
+	}
+	
+	self.bullet_nodes = M.setup_image_counter_nodes(data, self.bullet_template_node)
+	pprint(self.bullet_nodes)
+
+	
+	
 end
+
+
 
 function final(self)
 
 end
 
 function update(self, dt)
+	gui.set_text(self.bullet_counter_text_node , tostring(self.bullet_counter) .. "/" .. tostring(self.bullet_counter_max))
 
 end
 
@@ -17,8 +76,28 @@ function on_message(self, message_id, message, sender)
 	-- Remove this function if not needed
 end
 
-function on_input(self, action_id, action)
+local function pull_trigger(self)
+	if self.bullet_counter <= 0 then
+		print("click!")
+	else
+		print("bang!")
+		M.modify_counter_value(self, -1)
+		
+	end
+end
 
+local function reload(self)
+	print("reloading!")
+	M.modify_counter_value(self, self.bullet_counter_max)
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("click") and action.released then
+		pull_trigger(self)
+	end
+	if action_id == hash("key_r") and action.released then
+		reload(self)
+	end	
 end
 
 function on_reload(self)
