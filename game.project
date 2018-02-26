@@ -1,0 +1,16 @@
+[project]
+title = ZUI
+custom_resources = zui/,example/
+
+[bootstrap]
+main_collection = /example/example.collectionc
+
+[input]
+game_binding = /example/example.input_bindingc
+
+[script]
+shared_state = 1
+
+[library]
+include_dirs = zui
+
