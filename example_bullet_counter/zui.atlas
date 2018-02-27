@@ -1,5 +1,5 @@
 images {
-  image: "/example/bullet.png"
+  image: "/example_bullet_counter/bullet.png"
 }
 margin: 0
 extrude_borders: 0

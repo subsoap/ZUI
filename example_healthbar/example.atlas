@@ -1,0 +1,12 @@
+images {
+  image: "/example_healthbar/bar_bg.png"
+}
+images {
+  image: "/example_healthbar/bar_fg.png"
+}
+images {
+  image: "/example_healthbar/bar_side.png"
+}
+margin: 2
+extrude_borders: 2
+inner_padding: 0

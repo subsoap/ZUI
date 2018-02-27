@@ -1,7 +1,7 @@
 script: ""
 textures {
   name: "zui"
-  texture: "/example/zui.atlas"
+  texture: "/example_bullet_counter/zui.atlas"
 }
 background_color {
   x: 0.0

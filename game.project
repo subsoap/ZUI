@@ -3,10 +3,10 @@ title = ZUI
 custom_resources = zui/,example/
 
 [bootstrap]
-main_collection = /example/example.collectionc
+main_collection = /example_healthbar/example.collectionc
 
 [input]
-game_binding = /example/example.input_bindingc
+game_binding = /example_bullet_counter/example.input_bindingc
 
 [script]
 shared_state = 1

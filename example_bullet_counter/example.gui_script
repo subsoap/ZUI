@@ -14,7 +14,7 @@ function M.setup_image_counter_nodes(data, template)
 		container[k] = {}
 		container[k].gui = gui.clone(template)
 		local position = vmath.vector3()
-		print(size.x, position.x)
+		--print(size.x, position.x)
 		position.x = data.parent_position.x + (size.x - 4) * k 
 		position.y = data.parent_position.y
 		gui.set_position(container[k].gui, position)
@@ -28,7 +28,7 @@ function M.modify_counter_value(self, amount)
 	if self.bullet_counter < 0 then self.bullet_counter = 0 end
 	if self.bullet_counter > self.bullet_counter_max then self.bullet_counter = self.bullet_counter_max end
 	for k,v in ipairs(self.bullet_nodes) do
-		print(k)
+		--print(k)
 		if k <= self.bullet_counter then
 			gui.set_enabled(v.gui,true)
 		else
@@ -54,7 +54,7 @@ function init(self)
 	}
 	
 	self.bullet_nodes = M.setup_image_counter_nodes(data, self.bullet_template_node)
-	pprint(self.bullet_nodes)
+	--pprint(self.bullet_nodes)
 
 	
 	

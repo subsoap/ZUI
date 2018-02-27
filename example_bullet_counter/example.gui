@@ -1,4 +1,4 @@
-script: "/example/example.gui_script"
+script: "/example_bullet_counter/example.gui_script"
 fonts {
   name: "system_font"
   font: "/builtins/fonts/system_font.font"
@@ -45,7 +45,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/example/bullet.gui"
+  template: "/example_bullet_counter/bullet.gui"
   template_node_child: false
 }
 nodes {
